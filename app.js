@@ -29,6 +29,9 @@ const PLAYER_MAX_DAMAGE = 12;
 const MONSTER_MIN_DAMAGE = 3;
 const MONSTER_MAX_DAMAGE = 10;
 
+const SPECIAL_ATTACK_MIN_DAMAGE = 10;
+const SPECIAL_ATTACK_MAX_DAMAGE = 20;
+
 new Vue({
     el: "#app",
     data: {
@@ -49,6 +52,20 @@ new Vue({
 
       attack() {
         const monsterDamage = computeRandomNumber(MONSTER_MIN_DAMAGE, MONSTER_MAX_DAMAGE);
+        this.hitMonster(monsterDamage);
+
+        if (this.checkForWinner()) {
+          return;
+        }
+
+        const playerDamage = computeRandomNumber(PLAYER_MIN_DAMAGE, PLAYER_MAX_DAMAGE);
+        this.hitPlayer(playerDamage);
+
+        this.checkForWinner();
+      },
+
+      specialAttack() {
+        const monsterDamage = computeRandomNumber(SPECIAL_ATTACK_MIN_DAMAGE, SPECIAL_ATTACK_MAX_DAMAGE);
         this.hitMonster(monsterDamage);
 
         if (this.checkForWinner()) {
