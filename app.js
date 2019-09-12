@@ -6,6 +6,10 @@ new Vue({
         isGameRunning: false
     },
     methods: {
-
+      startNewGame() {
+        this.player = 100;
+        this.monster = 100;
+        this.isGameRunning = true;
+      }
     }
 })
