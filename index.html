@@ -54,11 +54,11 @@
       </div>
     </section>
 
-    <section class="row log">
+    <section class="row log" v-if="roundLogs.length > 0">
       <div class="small-12 columns">
         <ul>
-          <li>
-
+          <li v-for="log in roundLogs">
+            {{ log }}
           </li>
         </ul>
       </div>

@@ -37,13 +37,15 @@ new Vue({
     data: {
         player: FULL_LIFE,
         monster: FULL_LIFE,
-        isGameRunning: false
+        isGameRunning: false,
+        roundLogs: []
     },
     methods: {
       startNewGame() {
         this.player = FULL_LIFE;
         this.monster = FULL_LIFE;
         this.isGameRunning = true;
+        this.roundLogs = [];
       },
 
       stopGame() {
