@@ -23,26 +23,26 @@ function computeRandomNumber(min, max) {
   return Math.max(min, randonNumberBetweenOneAndMax);
 }
 
+const FULL_LIFE = 100;
 const PLAYER_MIN_DAMAGE = 5;
 const PLAYER_MAX_DAMAGE = 12;
-
 const MONSTER_MIN_DAMAGE = 3;
 const MONSTER_MAX_DAMAGE = 10;
-
 const SPECIAL_ATTACK_MIN_DAMAGE = 10;
 const SPECIAL_ATTACK_MAX_DAMAGE = 20;
+const PLAYER_LIFE_RECOVERY_WITH_HEAL = 10;
 
 new Vue({
     el: "#app",
     data: {
-        player: 100,
-        monster: 100,
+        player: FULL_LIFE,
+        monster: FULL_LIFE,
         isGameRunning: false
     },
     methods: {
       startNewGame() {
-        this.player = 100;
-        this.monster = 100;
+        this.player = FULL_LIFE;
+        this.monster = FULL_LIFE;
         this.isGameRunning = true;
       },
 
@@ -58,6 +58,17 @@ new Vue({
         this.playOneGameRound(SPECIAL_ATTACK_MIN_DAMAGE, SPECIAL_ATTACK_MAX_DAMAGE);
       },
 
+      heal() {
+        this.healPlayer();
+        this.playMonsterRound();
+      },
+
+      healPlayer() {
+        const maxPossiblePlayerLifeRecovery = FULL_LIFE - this.player;
+        const playerLifeRecovery = Math.min(maxPossiblePlayerLifeRecovery, PLAYER_LIFE_RECOVERY_WITH_HEAL);
+        this.player += playerLifeRecovery;
+      },
+
       playOneGameRound(monsterMinDamage, monsterMaxDamage) {
         const monsterDamage = computeRandomNumber(monsterMinDamage, monsterMaxDamage);
         this.hitMonster(monsterDamage);
@@ -66,6 +77,10 @@ new Vue({
           return;
         }
 
+        this.playMonsterRound();
+      },
+
+      playMonsterRound() {
         const playerDamage = computeRandomNumber(PLAYER_MIN_DAMAGE, PLAYER_MAX_DAMAGE);
         this.hitPlayer(playerDamage);
 
