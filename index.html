@@ -57,7 +57,9 @@
     <section class="row log" v-if="roundLogs.length > 0">
       <div class="small-12 columns">
         <ul>
-          <li v-for="log in roundLogs">
+          <li 
+            v-for="log in roundLogs"
+            :class="{'player-turn': log.isPlayerRound, 'monster-turn': !log.isPlayerRound}">
             {{ log.text }}
           </li>
         </ul>
