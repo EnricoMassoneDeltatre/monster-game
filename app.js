@@ -63,6 +63,10 @@ new Vue({
         this.playMonsterRound();
       },
 
+      giveUp() {
+        this.stopGame();
+      },
+
       healPlayer() {
         const maxPossiblePlayerLifeRecovery = FULL_LIFE - this.player;
         const playerLifeRecovery = Math.min(maxPossiblePlayerLifeRecovery, PLAYER_LIFE_RECOVERY_WITH_HEAL);
