@@ -73,6 +73,7 @@ new Vue({
         const maxPossiblePlayerLifeRecovery = FULL_LIFE - this.player;
         const playerLifeRecovery = Math.min(maxPossiblePlayerLifeRecovery, PLAYER_LIFE_RECOVERY_WITH_HEAL);
         this.player += playerLifeRecovery;
+        this.writeLog(true, `Player heals by ${playerLifeRecovery}`);
       },
 
       playOneGameRound(monsterMinDamage, monsterMaxDamage) {
@@ -96,11 +97,13 @@ new Vue({
       hitMonster(damage) {
         const actualDamage = Math.min(this.monster, damage);
         this.monster -= actualDamage;
+        this.writeLog(true, `Player hits Monster by ${damage}`);
       },
 
       hitPlayer(damage) {
         const actualDamage = Math.min(this.player, damage);
         this.player -= actualDamage;
+        this.writeLog(false, `Monster hits Player by ${damage}`);
       },
 
       checkForWinner() {
@@ -125,6 +128,13 @@ new Vue({
         } else {
           return false;
         }
+      },
+
+      writeLog(isPlayerRound, text) {
+        this.roundLogs.unshift({
+          isPlayerRound,
+          text
+        });
       }
     },
     computed: {
