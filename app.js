@@ -51,21 +51,15 @@ new Vue({
       },
 
       attack() {
-        const monsterDamage = computeRandomNumber(MONSTER_MIN_DAMAGE, MONSTER_MAX_DAMAGE);
-        this.hitMonster(monsterDamage);
-
-        if (this.checkForWinner()) {
-          return;
-        }
-
-        const playerDamage = computeRandomNumber(PLAYER_MIN_DAMAGE, PLAYER_MAX_DAMAGE);
-        this.hitPlayer(playerDamage);
-
-        this.checkForWinner();
+        this.playOneGameRound(MONSTER_MIN_DAMAGE, MONSTER_MAX_DAMAGE);
       },
 
       specialAttack() {
-        const monsterDamage = computeRandomNumber(SPECIAL_ATTACK_MIN_DAMAGE, SPECIAL_ATTACK_MAX_DAMAGE);
+        this.playOneGameRound(SPECIAL_ATTACK_MIN_DAMAGE, SPECIAL_ATTACK_MAX_DAMAGE);
+      },
+
+      playOneGameRound(monsterMinDamage, monsterMaxDamage) {
+        const monsterDamage = computeRandomNumber(monsterMinDamage, monsterMaxDamage);
         this.hitMonster(monsterDamage);
 
         if (this.checkForWinner()) {
